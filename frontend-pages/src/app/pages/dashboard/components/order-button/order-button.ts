@@ -17,6 +17,11 @@ export class OrderButton {
   errorValue = signal(false);
 
   onQuantityChange(value: string) {
+    if (value === '') {
+      this.quantity.set(1);
+      return;
+    }
+
     const num = parseInt(value);
     if (num > 0) this.quantity.set(num);
   }
@@ -43,7 +48,7 @@ export class OrderButton {
       error: () => {
         this.error.set('Error al crear el pedido. Intenta de nuevo.');
         this.loading.set(false);
-      }
+      },
     });
   }
 }
