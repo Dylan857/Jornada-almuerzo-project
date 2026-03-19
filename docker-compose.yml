@@ -1,6 +1,7 @@
 services:
   postgres:
     image: postgres:15-alpine
+    restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -8,58 +9,78 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "5432:5432"
+
   order-service:
     build:
-      context: ./order-service
+      context: ./src/order-service
       dockerfile: Dockerfile
     container_name: order-service
+    restart: always
     ports:
       - "3001:3001"
     depends_on:
+      - postgres
       - warehouse-service
-      - kitchen-service
+    env_file:
+      - ./src/order-service/.env
 
   warehouse-service:
     build:
-      context: ./warehouse-service
+      context: ./src/warehouse-service
       dockerfile: Dockerfile
     container_name: warehouse-service
+    restart: always
     ports:
       - "3003:3003"
     depends_on:
+      - postgres
       - market-service
+    env_file:
+      - ./src/warehouse-service/.env
 
   kitchen-service:
     build:
-      context: ./kitchen-service
+      context: ./src/kitchen-service
       dockerfile: Dockerfile
     container_name: kitchen-service
+    restart: always
     ports:
       - "3002:3002"
+    depends_on:
+      - postgres
+    env_file:
+      - ./src/kitchen-service/.env
 
   market-service:
     build:
-      context: ./market-service
+      context: ./src/market-service
       dockerfile: Dockerfile
     container_name: market-service
+    restart: always
     ports:
       - "3004:3004"
+    env_file:
+      - ./src/market-service/.env
 
   ai-service:
     build:
-      context: ./ai-service
+      context: ./src/ai-service
       dockerfile: Dockerfile
     container_name: ai-service
+    restart: always
     ports:
       - "3005:3005"
+    depends_on:
+      - postgres
+    env_file:
+      - ./src/ai-service/.env
 
   api-gateway:
     build:
-      context: ./api-gateway
+      context: ./src/api-gateway
       dockerfile: Dockerfile
     container_name: api-gateway
+    restart: always
     ports:
       - "3000:3000"
     depends_on:
@@ -68,3 +89,8 @@ services:
       - kitchen-service
       - market-service
       - ai-service
+    env_file:
+      - ./src/api-gateway/.env
+
+volumes:
+  postgres_data:
