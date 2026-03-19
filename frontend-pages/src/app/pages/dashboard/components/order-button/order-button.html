@@ -1,6 +1,5 @@
 <div class="bg-white rounded-2xl border border-slate-200 p-6">
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
     <div>
       <h2 class="text-base font-semibold text-slate-800">Nueva orden</h2>
       <p class="text-sm text-slate-400 mt-0.5">Ingresa la cantidad de platos a preparar</p>
@@ -10,28 +9,26 @@
       <input
         type="number"
         min="1"
-        [value]="quantity()"
-        (input)="onQuantityChange($any($event.target).value)"
-        class="w-24 px-3 py-2 text-sm border border-slate-200 rounded-lg text-center
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        [(ngModel)]="quantityValue"
+        (ngModelChange)="onQuantityChange($event)"
+        class="w-24 px-3 py-2 text-sm border border-slate-200 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         placeholder="Cantidad"
       />
       <button
         (click)="placeOrder()"
         [disabled]="loading() || quantity() <= 0"
-        class="flex items-center gap-2 px-5 py-2 bg-blue-500 hover:bg-blue-600
-               disabled:bg-blue-300 text-white text-sm font-medium rounded-lg
-               transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed">
+        class="flex items-center gap-2 px-5 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white text-sm font-medium rounded-lg transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed"
+      >
         @if (loading()) {
-          <span class="w-4 h-4 border-2 border-white border-t-transparent
-                       rounded-full animate-spin"></span>
+          <span
+            class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+          ></span>
           <span>Procesando...</span>
         } @else {
           <span>🍽️ Ordenar platos</span>
         }
       </button>
     </div>
-
   </div>
 
   @if (lastOrderId()) {
@@ -45,9 +42,7 @@
 
   @if (errorValue()) {
     <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-      <p class="text-sm text-red-700">
-        por favor, ingrese una cantidad válida.
-      </p>
+      <p class="text-sm text-red-700">por favor, ingrese una cantidad válida.</p>
     </div>
   }
 
