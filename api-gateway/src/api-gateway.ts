@@ -41,7 +41,6 @@ function setCorsHeaders(res: http.ServerResponse) {
 const server = http.createServer((req, res) => {
   setCorsHeaders(res);
 
-  // Preflight OPTIONS — responder inmediato sin hacer proxy
   if (req.method === "OPTIONS") {
     res.writeHead(204);
     return res.end();
