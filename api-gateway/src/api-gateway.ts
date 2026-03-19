@@ -1,5 +1,5 @@
-import http from "http";
-import { proxyRequest } from "./shared/http/proxy";
+import http from 'http';
+import { proxyRequest } from './shared/http/proxy';
 
 type ServiceRoute = {
   host: string;
@@ -7,48 +7,48 @@ type ServiceRoute = {
 };
 
 const routes: Record<string, ServiceRoute> = {
-  "/orders": {
+  '/orders': {
     host: process.env.ORDER_SERVICE_HOST!,
     port: Number(process.env.ORDER_SERVICE_PORT) || 3001,
   },
-  "/kitchen": {
+  '/kitchen': {
     host: process.env.KITCHEN_SERVICE_HOST!,
     port: Number(process.env.KITCHEN_SERVICE_PORT) || 3002,
   },
-  "/warehouse": {
+  '/warehouse': {
     host: process.env.WAREHOUSE_SERVICE_HOST!,
     port: Number(process.env.WAREHOUSE_SERVICE_PORT) || 3003,
   },
-  "/market": {
+  '/market': {
     host: process.env.MARKET_SERVICE_HOST!,
     port: Number(process.env.MARKET_SERVICE_PORT) || 3004,
   },
-  "/ai": {
+  '/ai': {
     host: process.env.AI_SERVICE_HOST!,
     port: Number(process.env.AI_SERVICE_PORT) || 3005,
   },
 };
 
 function setCorsHeaders(res: http.ServerResponse) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, PATCH, DELETE, OPTIONS',
   );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
 
 const server = http.createServer((req, res) => {
   setCorsHeaders(res);
 
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     res.writeHead(204);
     return res.end();
   }
 
   if (!req.url) {
     res.writeHead(400);
-    return res.end("Bad request");
+    return res.end('Bad request');
   }
 
   const route = Object.entries(routes).find(([path]) =>
@@ -57,7 +57,7 @@ const server = http.createServer((req, res) => {
 
   if (!route) {
     res.writeHead(404);
-    return res.end("Route not found");
+    return res.end('Route not found');
   }
 
   const [, target] = route;
@@ -65,5 +65,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3000, () => {
-  console.log("API Gateway running on port 3000");
+  console.log('API Gateway running on port 3000');
 });

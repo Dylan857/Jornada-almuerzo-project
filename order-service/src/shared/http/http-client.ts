@@ -6,7 +6,7 @@ export async function httpRequest(
   const response = await fetch(url, {
     method,
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
     body: body ? JSON.stringify(body) : undefined
   })

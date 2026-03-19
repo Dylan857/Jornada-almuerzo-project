@@ -1,6 +1,6 @@
-import { routes } from "./ai.routes";
-import { createServer } from "./shared/http/create-server";
-import { createRouter } from "./shared/http/router";
+import { routes } from './ai.routes';
+import { createServer } from './shared/http/create-server';
+import { createRouter } from './shared/http/router';
 
 const PORT = 3005;
 

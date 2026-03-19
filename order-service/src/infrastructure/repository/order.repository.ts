@@ -1,4 +1,4 @@
-import { readSession, transaction } from "../../shared/database/postgres";
+import { readSession, transaction } from '../../shared/database/postgres';
 
 export class OrderRepository {
   async createOrder(quantity: number) {
@@ -55,7 +55,7 @@ export class OrderRepository {
 
   async updateOrderStatus(
     orderId: string,
-    status: "pending" | "preparing" | "completed" | "failed" | "in_kitchen",
+    status: 'pending' | 'preparing' | 'completed' | 'failed' | 'in_kitchen',
     quantityApproved?: number,
     data?: any,
   ) {

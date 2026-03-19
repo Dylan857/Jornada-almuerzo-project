@@ -1,5 +1,5 @@
-import { Pool, PoolClient, QueryResult } from "pg";
-import dotenv from "dotenv";
+import { Pool, PoolClient, QueryResult } from 'pg';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -27,25 +27,25 @@ export async function readSession(
 
   try {
     if (options?.transaction) {
-      await client.query("BEGIN");
+      await client.query('BEGIN');
     }
 
     let finalQuery = query;
 
     if (options?.lock) {
-      finalQuery += " FOR UPDATE";
+      finalQuery += ' FOR UPDATE';
     }
 
     const result = await client.query(finalQuery, params);
 
     if (options?.transaction) {
-      await client.query("COMMIT");
+      await client.query('COMMIT');
     }
 
     return result;
   } catch (error) {
     if (options?.transaction) {
-      await client.query("ROLLBACK");
+      await client.query('ROLLBACK');
     }
 
     throw error;
@@ -61,15 +61,15 @@ export async function writeSession(
   const client: PoolClient = await pool.connect();
 
   try {
-    await client.query("BEGIN");
+    await client.query('BEGIN');
 
     const result = await client.query(query, params);
 
-    await client.query("COMMIT");
+    await client.query('COMMIT');
 
     return result;
   } catch (error) {
-    await client.query("ROLLBACK");
+    await client.query('ROLLBACK');
 
     throw error;
   } finally {
@@ -83,15 +83,15 @@ export async function transaction<T>(
   const client = await pool.connect();
 
   try {
-    await client.query("BEGIN");
+    await client.query('BEGIN');
 
     const result = await callback(client);
 
-    await client.query("COMMIT");
+    await client.query('COMMIT');
 
     return result;
   } catch (error) {
-    await client.query("ROLLBACK");
+    await client.query('ROLLBACK');
 
     throw error;
   } finally {

@@ -57,7 +57,7 @@ export class ChatBubble implements AfterViewChecked {
           ...msgs,
           {
             role: 'assistant',
-            content: 'Ocurrió un error al consultar el asistente.',
+            content: 'Chat bot no disponible por el momento. Por favor, inténtalo de nuevo más tarde.',
             timestamp: new Date(),
           },
         ]);

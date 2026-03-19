@@ -1,4 +1,4 @@
-import { MarketRepository } from "../infrastructure/repository/market.repository";
+import { MarketRepository } from '../infrastructure/repository/market.repository';
 
 export class MarketService {
   private marketRepository = new MarketRepository();

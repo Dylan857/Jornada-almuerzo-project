@@ -1,6 +1,6 @@
-import { AIRepository } from "../infrastructure/repository/ai.repository";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import dotenv from "dotenv";
+import { AIRepository } from '../infrastructure/repository/ai.repository';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -8,70 +8,70 @@ const TOOLS = [
   {
     functionDeclarations: [
       {
-        name: "getIngredientStock",
+        name: 'getIngredientStock',
         description:
-          "Returns current stock of all ingredients in the warehouse",
+          'Returns current stock of all ingredients in the warehouse',
         parameters: {
-          type: "OBJECT",
+          type: 'OBJECT',
           properties: {},
           required: [],
         },
       },
       {
-        name: "getTopRecipes",
-        description: "Returns the most ordered recipes with their count",
+        name: 'getTopRecipes',
+        description: 'Returns the most ordered recipes with their count',
         parameters: {
-          type: "OBJECT",
+          type: 'OBJECT',
           properties: {
             limit: {
-              type: "NUMBER",
-              description: "How many recipes to return (default 5)",
+              type: 'NUMBER',
+              description: 'How many recipes to return (default 5)',
             },
           },
           required: [],
         },
       },
       {
-        name: "getLowStockIngredients",
-        description: "Returns ingredients with stock below a threshold",
+        name: 'getLowStockIngredients',
+        description: 'Returns ingredients with stock below a threshold',
         parameters: {
-          type: "OBJECT",
+          type: 'OBJECT',
           properties: {
             threshold: {
-              type: "NUMBER",
-              description: "Stock level to consider low",
+              type: 'NUMBER',
+              description: 'Stock level to consider low',
             },
           },
           required: [],
         },
       },
       {
-        name: "getOrderHistory",
-        description: "Returns recent orders with their status and quantities",
+        name: 'getOrderHistory',
+        description: 'Returns recent orders with their status and quantities',
         parameters: {
-          type: "OBJECT",
+          type: 'OBJECT',
           properties: {
-            limit: { type: "NUMBER" },
+            limit: { type: 'NUMBER' },
           },
           required: [],
         },
       },
       {
-        name: "getPurchaseHistory",
-        description: "Returns recent market purchases by ingredient",
+        name: 'getPurchaseHistory',
+        description: 'Returns recent market purchases by ingredient',
         parameters: {
-          type: "OBJECT",
+          type: 'OBJECT',
           properties: {
-            limit: { type: "NUMBER" },
+            limit: { type: 'NUMBER' },
           },
           required: [],
         },
       },
       {
-        name: "getScarcityPrediction",
-        description: "Predicts which ingredients will run out soonest",
+        name: 'getScarcityPrediction',
+        description: 'Predicts which ingredients will run out soonest',
         parameters: {
-          type: "OBJECT",
+          type: 'OBJECT',
           properties: {},
           required: [],
         },
@@ -84,7 +84,7 @@ export class AIService {
   private repository = new AIRepository();
   private genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
   private model = this.genAI.getGenerativeModel({
-    model: "gemini-2.5-flash",
+    model: 'gemini-2.5-flash',
     tools: TOOLS as any,
     systemInstruction: `You are an intelligent assistant for a restaurant management system. 
     You have access to real-time data from the warehouse, orders, and market purchases.
@@ -117,17 +117,17 @@ export class AIService {
 
   private async executeTool(name: string, args: any): Promise<any> {
     switch (name) {
-      case "getIngredientStock":
+      case 'getIngredientStock':
         return await this.repository.getIngredientStock();
-      case "getTopRecipes":
+      case 'getTopRecipes':
         return await this.repository.getTopRecipes(args.limit);
-      case "getLowStockIngredients":
+      case 'getLowStockIngredients':
         return await this.repository.getLowStockIngredients(args.threshold);
-      case "getOrderHistory":
+      case 'getOrderHistory':
         return await this.repository.getOrderHistory(args.limit);
-      case "getPurchaseHistory":
+      case 'getPurchaseHistory':
         return await this.repository.getPurchaseHistory(args.limit);
-      case "getScarcityPrediction":
+      case 'getScarcityPrediction':
         return await this.repository.getScarcityPrediction();
       default:
         throw new Error(`Unknown tool: ${name}`);

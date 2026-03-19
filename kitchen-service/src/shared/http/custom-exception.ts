@@ -4,6 +4,6 @@ export class CustomException extends Error {
     public statusCode: number = 500,
   ) {
     super(message);
-    this.name = "CustomException";
+    this.name = 'CustomException';
   }
 }

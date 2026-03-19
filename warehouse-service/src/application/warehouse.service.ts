@@ -1,5 +1,5 @@
-import { transaction } from "../shared/database/postgres";
-import { WarehouseRepository } from "../infrastructure/repository/warehouse.repository";
+import { transaction } from '../shared/database/postgres';
+import { WarehouseRepository } from '../infrastructure/repository/warehouse.repository';
 
 export class WarehouseService {
   private warehouseRepository = new WarehouseRepository();
@@ -8,7 +8,7 @@ export class WarehouseService {
 
   async processOrder(quantity: number) {
     const recipes = await this.warehouseRepository.getRecipes();
-    if (!recipes.length) throw new Error("No recipes available");
+    if (!recipes.length) throw new Error('No recipes available');
 
     const approved: any[] = [];
     const MAX_GLOBAL_ATTEMPTS = quantity * 10;
@@ -26,7 +26,7 @@ export class WarehouseService {
       );
 
       for (const result of batchResults) {
-        if (result.status === "fulfilled" && result.value) {
+        if (result.status === 'fulfilled' && result.value) {
           approved.push(result.value);
         }
       }
@@ -78,8 +78,8 @@ export class WarehouseService {
   private async buyAndRestock(ingredient: any): Promise<boolean> {
     try {
       const response = await fetch(`${process.env.MARKET_URL}/market/buy`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: ingredient.name }),
       });
 
@@ -134,7 +134,7 @@ export class WarehouseService {
         };
       });
     } catch (error) {
-      console.error("Error processing recipe:", error);
+      console.error('Error processing recipe:', error);
       return {
         success: false,
         missing: [],

@@ -1,8 +1,8 @@
-import { readSession, writeSession } from "../../shared/database/postgres";
+import { readSession, writeSession } from '../../shared/database/postgres';
 
 export class MarketRepository {
   private apiMarketUrl =
-    "https://recruitment.alegra.com/api/farmers-market/buy?ingredient=";
+    'https://recruitment.alegra.com/api/farmers-market/buy?ingredient=';
 
   async buyIngredient(name: string) {
     const response = await fetch(`${this.apiMarketUrl}${name}`);

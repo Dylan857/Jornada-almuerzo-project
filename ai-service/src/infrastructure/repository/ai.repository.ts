@@ -1,4 +1,4 @@
-import { readSession } from "../../shared/database/postgres";
+import { readSession } from '../../shared/database/postgres';
 
 export class AIRepository {
   async getIngredientStock() {

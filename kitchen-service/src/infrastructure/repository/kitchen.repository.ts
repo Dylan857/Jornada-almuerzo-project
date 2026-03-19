@@ -1,4 +1,4 @@
-import { readSession, writeSession } from "../../shared/database/postgres";
+import { readSession, writeSession } from '../../shared/database/postgres';
 
 export class KitchenRepository {
   async findOrder(orderId: string) {

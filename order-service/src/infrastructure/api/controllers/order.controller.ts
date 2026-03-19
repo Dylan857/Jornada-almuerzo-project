@@ -1,8 +1,8 @@
-import { OrderService } from "../../../application/order.service";
-import { CustomException } from "../../../shared/http/custom-exception";
-import { readBody } from "../../../shared/http/read-body";
-import { withResponse } from "../../../shared/http/with-response";
-import { CreateOrderDto } from "../dto/create-order.dto";
+import { OrderService } from '../../../application/order.service';
+import { CustomException } from '../../../shared/http/custom-exception';
+import { readBody } from '../../../shared/http/read-body';
+import { withResponse } from '../../../shared/http/with-response';
+import { CreateOrderDto } from '../dto/create-order.dto';
 
 export class OrderController {
   private orderService = new OrderService();
@@ -11,7 +11,7 @@ export class OrderController {
     const body = await readBody<CreateOrderDto>(req);
 
     if (!body.quantity || body.quantity <= 0) {
-      throw new CustomException("Quantity must be greater than 0", 400);
+      throw new CustomException('Quantity must be greater than 0', 400);
     }
 
     return this.orderService.createOrder(body);
@@ -21,7 +21,7 @@ export class OrderController {
     const { id } = req.params;
     const order = await this.orderService.getOrder(id);
 
-    if (!order) throw new CustomException("Order not found", 404);
+    if (!order) throw new CustomException('Order not found', 404);
 
     return order;
   });

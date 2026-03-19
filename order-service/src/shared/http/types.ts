@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from 'http';
 
 export interface Route {
   method: string;
@@ -7,9 +7,9 @@ export interface Route {
 }
 
 export enum HttpMethod {
-  GET = "GET",
-  PATCH = "PATCH",
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
+  GET = 'GET',
+  PATCH = 'PATCH',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }

@@ -19,21 +19,20 @@ export class OrderButton {
 
   onQuantityChange(value: number) {
     if (!value || value <= 0) {
-      this.quantityValue = 1;
-      this.quantity.set(1);
+      this.errorValue.set(true);
     } else {
       this.quantity.set(value);
+      this.errorValue.set(false);
     }
-    this.errorValue.set(false);
   }
 
   placeOrder() {
     if (this.loading()) return;
 
-    if (this.quantity() <= 0) {
+    if (this.quantityValue <= 0) {
       this.errorValue.set(true);
       return;
-    }
+    } 
 
     this.loading.set(true);
     this.error.set(null);

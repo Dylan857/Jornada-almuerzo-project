@@ -1,5 +1,5 @@
 export interface Kitchen {
   id: string;
-  status: "preparing" | "completed";
+  status: 'preparing' | 'completed';
   updatedAt: Date;
 }

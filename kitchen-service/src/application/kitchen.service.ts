@@ -1,4 +1,4 @@
-import { KitchenRepository } from "../infrastructure/repository/kitchen.repository";
+import { KitchenRepository } from '../infrastructure/repository/kitchen.repository';
 
 export class KitchenService {
   private kitchenRepository = new KitchenRepository();
@@ -10,15 +10,15 @@ export class KitchenService {
       throw new Error(`Order ${orderId} not found`);
     }
 
-    if (order.status === "completed") {
+    if (order.status === 'completed') {
       throw new Error(`Order ${orderId} is already completed`);
     }
 
-    await this.kitchenRepository.updateOrderStatus(orderId, "completed");
+    await this.kitchenRepository.updateOrderStatus(orderId, 'completed');
 
     return {
       orderId,
-      status: "completed",
+      status: 'completed',
       updatedAt: new Date(),
     };
   }

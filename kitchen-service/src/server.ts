@@ -1,6 +1,6 @@
-import { createServer } from "./shared/http/create-server";
-import { createRouter } from "./shared/http/router";
-import { routes } from "./kitchen.routes";
+import { createServer } from './shared/http/create-server';
+import { createRouter } from './shared/http/router';
+import { routes } from './kitchen.routes';
 
 const PORT = 3002;
 

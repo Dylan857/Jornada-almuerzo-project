@@ -1,12 +1,12 @@
-import { MarketController } from "./infrastructure/api/controllers/market.controller";
-import { HttpMethod } from "./shared/http/types";
+import { MarketController } from './infrastructure/api/controllers/market.controller';
+import { HttpMethod } from './shared/http/types';
 
 const controller = new MarketController();
 
 export const routes = [
   {
     method: HttpMethod.POST,
-    path: "/market/buy",
+    path: '/market/buy',
     handler: controller.buy.bind(controller),
   },
 
