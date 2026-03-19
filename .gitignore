@@ -1,2 +1,13 @@
+# .gitignore raíz
 node_modules/
-package-lock.json
+dist/
+.env
+*.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Docker
+postgres_data/
