@@ -1,0 +1,80 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: order-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - warehouse-service
+      - kitchen-service
+
+  warehouse-service:
+    build:
+      context: ./warehouse-service
+      dockerfile: Dockerfile
+    container_name: warehouse-service
+    ports:
+      - "3003:3003"
+    depends_on:
+      - market-service
+
+  kitchen-service:
+    build:
+      context: ./kitchen-service
+      dockerfile: Dockerfile
+    container_name: kitchen-service
+    ports:
+      - "3002:3002"
+
+  market-service:
+    build:
+      context: ./market-service
+      dockerfile: Dockerfile
+    container_name: market-service
+    ports:
+      - "3004:3004"
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: ai-service
+    ports:
+      - "3005:3005"
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - order-service
+      - warehouse-service
+      - kitchen-service
+      - market-service
+      - ai-service
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api-gateway
