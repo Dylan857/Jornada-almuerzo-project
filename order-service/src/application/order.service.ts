@@ -40,6 +40,7 @@ export class OrderService {
         data.data,
       );
     } catch (err) {
+      console.log(`Error processing order ${orderId}:`, err);
       await this.repository.updateOrderStatus(orderId, "failed");
     }
   }
