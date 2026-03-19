@@ -77,7 +77,7 @@ export class WarehouseService {
   }
   private async buyAndRestock(ingredient: any): Promise<boolean> {
     try {
-      const response = await fetch("http://market-service:3004/market/buy", {
+      const response = await fetch(`${process.env.MARKET_URL}/market/buy`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: ingredient.name }),

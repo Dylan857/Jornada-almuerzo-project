@@ -7,11 +7,26 @@ type ServiceRoute = {
 };
 
 const routes: Record<string, ServiceRoute> = {
-  "/orders": { host: "order-service", port: 3001 },
-  "/kitchen": { host: "kitchen-service", port: 3002 },
-  "/warehouse": { host: "warehouse-service", port: 3003 },
-  "/market": { host: "market-service", port: 3004 },
-  "/ai": { host: "ai-service", port: 3005 },
+  "/orders": {
+    host: process.env.ORDER_SERVICE_HOST!,
+    port: Number(process.env.ORDER_SERVICE_PORT) || 3001,
+  },
+  "/kitchen": {
+    host: process.env.KITCHEN_SERVICE_HOST!,
+    port: Number(process.env.KITCHEN_SERVICE_PORT) || 3002,
+  },
+  "/warehouse": {
+    host: process.env.WAREHOUSE_SERVICE_HOST!,
+    port: Number(process.env.WAREHOUSE_SERVICE_PORT) || 3003,
+  },
+  "/market": {
+    host: process.env.MARKET_SERVICE_HOST!,
+    port: Number(process.env.MARKET_SERVICE_PORT) || 3004,
+  },
+  "/ai": {
+    host: process.env.AI_SERVICE_HOST!,
+    port: Number(process.env.AI_SERVICE_PORT) || 3005,
+  },
 };
 
 function setCorsHeaders(res: http.ServerResponse) {

@@ -23,7 +23,7 @@ export class OrderService {
       await this.repository.updateOrderStatus(orderId, "preparing");
 
       const result = await fetch(
-        "http://warehouse-service:3003/warehouse/check",
+        `${process.env.WAREHOUSE_URL}/warehouse/check`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -32,7 +32,6 @@ export class OrderService {
       );
 
       const data = await result.json();
-      console.log(`Warehouse response for order ${orderId}:`, data);
 
       await this.repository.updateOrderStatus(
         orderId,
