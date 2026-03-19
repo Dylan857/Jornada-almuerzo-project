@@ -1,0 +1,34 @@
+<div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+  <div class="px-5 py-4 border-b border-slate-100">
+    <h2 class="text-base font-semibold text-slate-800">Compras en plaza</h2>
+  </div>
+
+  <div class="overflow-x-auto">
+    @if (marketService.purchases().length === 0) {
+      <div class="px-5 py-10 text-center text-sm text-slate-400">
+        No se han realizado compras
+      </div>
+    } @else {
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-slate-50 text-left">
+            <th class="px-5 py-3 text-xs font-medium text-slate-500">Ingrediente</th>
+            <th class="px-5 py-3 text-xs font-medium text-slate-500">Cantidad</th>
+            <th class="px-5 py-3 text-xs font-medium text-slate-500">Fecha</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          @for (purchase of marketService.purchases(); track purchase.created_at) {
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="px-5 py-3 text-slate-700 capitalize">{{ purchase.name }}</td>
+              <td class="px-5 py-3 font-mono text-blue-600">+{{ purchase.quantity }}</td>
+              <td class="px-5 py-3 text-slate-400">
+                {{ purchase.created_at | date:'dd/MM HH:mm' }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>

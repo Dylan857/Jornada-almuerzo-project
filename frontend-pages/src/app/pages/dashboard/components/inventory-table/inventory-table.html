@@ -1,0 +1,43 @@
+<div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+  <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+    <h2 class="text-base font-semibold text-slate-800">Inventario bodega</h2>
+    @if (warehouseService.loading()) {
+      <span class="w-4 h-4 border-2 border-blue-400 border-t-transparent
+                   rounded-full animate-spin"></span>
+    }
+  </div>
+
+  <div class="overflow-x-auto">
+    @if (warehouseService.ingredients().length === 0) {
+      <div class="px-5 py-10 text-center text-sm text-slate-400">
+        Sin datos de inventario
+      </div>
+    } @else {
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-slate-50 text-left">
+            <th class="px-5 py-3 text-xs font-medium text-slate-500">Ingrediente</th>
+            <th class="px-5 py-3 text-xs font-medium text-slate-500">Stock</th>
+            <th class="px-5 py-3 text-xs font-medium text-slate-500">Estado</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          @for (item of warehouseService.ingredients(); track item.name) {
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="px-5 py-3 text-slate-700 capitalize">{{ item.name }}</td>
+              <td class="px-5 py-3 font-mono {{ stockClass(item.stock) }}">
+                {{ item.stock }}
+              </td>
+              <td class="px-5 py-3">
+                <span class="px-2 py-0.5 rounded-full text-xs font-medium
+                             {{ stockBadge(item.stock) }}">
+                  {{ item.stock <= 2 ? 'Crítico' : item.stock <= 5 ? 'Bajo' : 'OK' }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>
