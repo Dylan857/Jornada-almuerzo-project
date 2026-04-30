@@ -1,12 +1,10 @@
 # 🍽️ Jornada de Almuerzo Gratis
 
-Sistema de gestión de pedidos para restaurante construido con arquitectura de microservicios, Node.js y Angular.
+Sistema de gestión de pedidos para restaurante construido con arquitectura de microservicios, Node.js.
 
 ## 🌐 Demo
 
-- **Frontend:** [https://prueba-tecnica-alegra.vercel.app](https://prueba-tecnica-alegra.vercel.app)
 - **API Gateway:** [https://api-gateway-production-a367.up.railway.app](https://api-gateway-production-a367.up.railway.app)
-
 ---
 
 ## 🏗️ Arquitectura
@@ -206,8 +204,8 @@ DB_NAME=restaurant
 ### Levantar el sistema
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/prueba-tecnica-alegra
-cd prueba-tecnica-alegra
+git clone https://github.com/tu-usuario/Jornada-almuerzo-project
+cd Jornada-almuerzo-project
 
 # Levantar todos los servicios
 docker-compose up --build
@@ -296,11 +294,6 @@ Variables de entorno configuradas en Railway usando referencias internas:
 DB_HOST=${{Postgres.PGHOST}}
 WAREHOUSE_SERVICE_HOST=warehouse-service.railway.internal
 ```
-
-### Frontend — Vercel
-
-El frontend Angular está desplegado en Vercel y rewrites para el routing de Angular.
-
 ---
 
 ## 💡 Decisiones técnicas
