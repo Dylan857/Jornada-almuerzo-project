@@ -1,4 +1,4 @@
-# 🍽️ Prueba tecnica Alegra — Jornada de Almuerzo Gratis
+# 🍽️ Jornada de Almuerzo Gratis
 
 Sistema de gestión de pedidos para restaurante construido con arquitectura de microservicios, Node.js y Angular.
 
